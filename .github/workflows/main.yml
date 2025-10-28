@@ -15,6 +15,12 @@ jobs:
       if: github.base_ref == 'main' && github.event.pull_request.merged == true
       runs-on: ubuntu-latest
       steps:
-         - name: Echo Ref
+         - name: Echo base_ref
            run: |
              echo ${{ github.base_ref }}
+         - name: Echo head_ref
+           run: |
+             echo ${{  github.head_ref }}
+         - name: Echo ref
+           run: |
+             echo ${{  github. github.ref }}
