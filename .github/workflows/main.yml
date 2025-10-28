@@ -2,11 +2,11 @@ name: Jobs Check
 on:
   pull_request:
     types:
-     #- opened
+     - opened
      #- synchronize
      - closed
-    branches:
-     - main  
+    #branches:
+    # - main  
      
   workflow_dispatch:  
   
@@ -15,12 +15,17 @@ jobs:
       if: github.base_ref == 'main' && github.event.pull_request.merged == true
       runs-on: ubuntu-latest
       steps:
+          
+          #The base_ref or target branch of the pull request in a workflow run. This property is only available when the event that triggers a workflow run is either pull_request or pull_request_target.
          - name: Echo base_ref
            run: |
              echo ${{ github.base_ref }}
+
+          #The head_ref or source branch of the pull request in a workflow run. This property is only available when the event that triggers a workflow run is either pull_request or pull_request_target.
          - name: Echo head_ref
            run: |
              echo ${{  github.head_ref }}
+
          - name: Echo ref
            run: |
              echo ${{  github. github.ref }}
