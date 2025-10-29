@@ -15,7 +15,10 @@ jobs:
       #if: github.base_ref == 'main' && github.event.pull_request.merged == true
       runs-on: ubuntu-latest
       steps:
-          
+         - name: Event
+           run: |
+             echo "Is Merged? "&& ${{ github.event.pull_request.merged }}
+             
           #The base_ref or target branch of the pull request in a workflow run. This property is only available when the event that triggers a workflow run is either pull_request or pull_request_target.
          - name: Echo base_ref
            run: |
@@ -29,3 +32,38 @@ jobs:
          - name: Echo ref
            run: |
              echo ${{  github. github.ref }}
+             
+         - name: Checkout
+           uses: actions/checkout@v2
+
+         - name: Checkmarx AST Github Action
+           # You may pin to the exact commit or the version.        
+           uses: checkmarx/ast-github-action@main
+           with:
+             # Provide the AST portal URL
+             base_uri: https://eu.ast.checkmarx.net/
+             # Provide the Tenant for AST portal URL
+             cx_tenant: ${{ secrets.CXONE_TENANT }}
+             # Client ID for AST portal authentication
+             cx_client_id: ${{ secrets.CXONE_CLIENTID }}
+             # Secret key for AST portal authentication
+             cx_client_secret: ${{ secrets.CXONE_CLIENTSECRET }}
+             # Select a Checkmarx Project Name
+             # optional, default is ${{ github.repository }}
+             project_name: ${{ github.repository }}
+             # Branch name
+             # optional, default is ${{ github.head_ref || github.ref }}
+             branch: ${{ github.base_ref }}
+             # GitHub API Token
+             # optional, default is ${{ github.token }}
+             github_token: ${{ secrets.PR_TOKEN }}          
+             # optional, default is ${{ github.event.repository.name }}
+             repo_name: ${{ github.event.repository.name }}
+             # Organization name to create the Pr comment
+             # optional, default is ${{ github.repository_owner }}
+             namespace: ${{ github.repository_owner }}
+             # Pr Number of the pull request that needs the decoration
+             # optional, default is ${{ github.event.number }}
+             pr_number: ${{ github.event.number }}           
+             # Additional parameters for AST scan
+             additional_params: --scan-types "sast"
