@@ -3,7 +3,7 @@ import requests
 url = "https://mywebsite/api/mystuff?limit=1&offset=25"
 
 
-mytoken = "token123FROMmainzzzz"
+mytoken = "token123FROMdevzzzz"
 
 payload = {}
 headers = {
@@ -12,5 +12,5 @@ headers = {
 }
 
 response = requests.request("GET", url, headers=headers, data=payload)
-
+print(headers)
 print(response.text)
