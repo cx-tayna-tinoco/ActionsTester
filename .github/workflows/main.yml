@@ -13,11 +13,7 @@ on:
 jobs:
     on_pr_open:
       runs-on: ubuntu-latest
-      steps:
-         - name: Event
-           run: |
-             echo "Is Merged? "&& ${{ github.event.pull_request.merged }}
-             
+      steps:             
           #The base_ref or target branch of the pull request in a workflow run. This property is only available when the event that triggers a workflow run is either pull_request or pull_request_target.
          - name: Echo base_ref
            run: |
@@ -69,13 +65,9 @@ jobs:
 
 
     on_merged:    
-      #if: github.base_ref == 'main' && github.event.pull_request.merged == true
+      if: github.base_ref == 'main' && github.event.pull_request.merged == true
       runs-on: ubuntu-latest
-      steps:
-         - name: Event
-           run: |
-             echo "Is Merged? "&& ${{ github.event.pull_request.merged }}
-             
+      steps: 
           #The base_ref or target branch of the pull request in a workflow run. This property is only available when the event that triggers a workflow run is either pull_request or pull_request_target.
          - name: Echo base_ref
            run: |
