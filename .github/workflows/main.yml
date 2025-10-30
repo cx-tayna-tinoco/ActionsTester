@@ -5,13 +5,15 @@ on:
      - opened
      #- synchronize
      - closed
-    #branches:
-    # - main  
+    branches:
+     - main  
      
   workflow_dispatch:  
   
 jobs:
     on_pr_open:
+      #Execute when PR is opened.
+      if: github.event.pull_request.merged == false
       runs-on: ubuntu-latest
       steps:             
           #The base_ref or target branch of the pull request in a workflow run. This property is only available when the event that triggers a workflow run is either pull_request or pull_request_target.
@@ -65,6 +67,7 @@ jobs:
 
 
     on_merged:    
+      ##Executes when merge is completed
       if: github.base_ref == 'main' && github.event.pull_request.merged == true
       runs-on: ubuntu-latest
       steps: 
